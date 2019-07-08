@@ -1,11 +1,12 @@
 from django.db import models
 
 # Create your models here.
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
 
-class MysiteUser(AbstractUser):
-    nickname = models.CharField(max_length=20, default='')
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=20)
 
-    class Meta(AbstractUser.Meta):
-        pass
+    def __str__(self):
+        return '<Profile: %s for %s>' % (self.nickname, self.user.username)
