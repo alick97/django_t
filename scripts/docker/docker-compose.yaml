@@ -1,0 +1,11 @@
+version: "3"
+services:
+    rabbitmq:
+        container_name: mysite_rabbitmq
+        image: rabbitmq:3.8.9
+        volumes: 
+            - mysite_rabbitmq_data:/var/lib/rabbitmq/
+        ports: 
+            - 5672:5672
+volumes: 
+    mysite_rabbitmq_data: {}

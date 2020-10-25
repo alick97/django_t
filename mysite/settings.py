@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'blog',
+    'celerytask',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,12 @@ STATIC_URL = '/static/'
 # }
 
 # ACCOUNT_EMAIL_VERIFICATION = None
+
+CELERY_CONFIG = {
+    'broker_url': 'amqp://guest:guest@localhost',
+    # Only add pickle to this list if your broker is secured
+    # from unwanted access (see userguide/security.html)
+    'accept_content': ['json'],
+    'result_backend': 'rpc://',
+    'task_serializer': 'json'
+}
