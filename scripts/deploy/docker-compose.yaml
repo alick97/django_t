@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  mysite_database:
+    container_name:  mysite_database
+    image: postgres:11.5
+    networks:
+      mysite_net:
+        aliases:
+          - mysite.database.local
+    ports:
+      - "5432:5432"
+    restart: always
+    # volumes:
+    #   - /Aurora/database/data:/var/lib/postgresql/data:rw
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+networks:
+  mysite_net:
+    ipam:
+      config:
+        - subnet: "172.19.0.0/24"
