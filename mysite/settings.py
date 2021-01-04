@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'blog',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'mysite.urls'
 
 AUTHENTICATION_BACKENDS = [
+    # ldap authentication.
+    'django_auth_ldap.backend.LDAPBackend',
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
     # `allauth` specific authentication methods, such as login by e-mail
@@ -155,3 +158,16 @@ STATIC_URL = '/static/'
 # }
 
 # ACCOUNT_EMAIL_VERIFICATION = None
+
+# django_auth_ldap.backend.LDAPBackend config.
+# document: https://django-auth-ldap.readthedocs.io/en/latest/authentication.html.
+import ldap
+from django_auth_ldap.config import LDAPSearch
+
+AUTH_LDAP_SERVER_URI = "ldap://localhost:389"
+
+AUTH_LDAP_BIND_DN = "cn=admin,dc=example,dc=org"
+AUTH_LDAP_BIND_PASSWORD = "admin"
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "ou=users,dc=example,dc=org", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
+)

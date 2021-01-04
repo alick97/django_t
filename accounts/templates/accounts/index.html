@@ -1,7 +1,9 @@
 <b>entry account page</b>
 {% if user.is_authenticated %}
     <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-    <p><a href="{% url 'logout' %}">logout</a></p>
+    {% comment %}
+    <p><a href="{% url 'accounts:logout' %}">logout</a></p>
+    {% endcomment %}
 {% else %}
-    <p>Welcome, new user. Please <a href="{% url 'login' %}?next={% url 'accounts.index' %}">log in</a>.</p>
+    <p>Welcome, new user. Please <a href="{% url 'accounts:login' %}?next={% url 'accounts:index' %}">log in</a>.</p>
 {% endif %}
